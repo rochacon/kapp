@@ -6,6 +6,7 @@ metadata:
   namespace: default
   annotations:
     kapp.k14s.io/update-strategy: always-replace
+    kapp.k14s.io/disable-wait: ""
 spec:
   backoffLimit: 2
   template:

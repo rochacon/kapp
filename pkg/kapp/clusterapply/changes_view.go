@@ -114,13 +114,13 @@ var (
 		ClusterChangeApplyOpAdd:    "create",
 		ClusterChangeApplyOpDelete: "delete",
 		ClusterChangeApplyOpUpdate: "update",
-		ClusterChangeApplyOpNoop:   "",
+		ClusterChangeApplyOpNoop:   "noop",
 	}
 
 	waitOpCodeUI = map[ClusterChangeWaitOp]string{
 		ClusterChangeWaitOpOK:     "reconcile",
 		ClusterChangeWaitOpDelete: "delete",
-		ClusterChangeWaitOpNoop:   "",
+		ClusterChangeWaitOpNoop:   "noop",
 	}
 )
 
@@ -133,7 +133,7 @@ func (v *ChangesView) applyOpCode(op ClusterChangeApplyOp) uitable.Value {
 	case ClusterChangeApplyOpUpdate:
 		return uitable.ValueFmt{V: uitable.NewValueString(applyOpCodeUI[op]), Error: false}
 	case ClusterChangeApplyOpNoop:
-		return uitable.NewValueString(applyOpCodeUI[op])
+		return uitable.NewValueString("")
 	default:
 		return uitable.NewValueString("???")
 	}
@@ -146,7 +146,7 @@ func (v *ChangesView) waitOpCode(op ClusterChangeWaitOp) uitable.Value {
 	case ClusterChangeWaitOpDelete:
 		return uitable.NewValueString(waitOpCodeUI[op])
 	case ClusterChangeWaitOpNoop:
-		return uitable.NewValueString(waitOpCodeUI[op])
+		return uitable.NewValueString("")
 	default:
 		return uitable.NewValueString("???")
 	}
@@ -170,7 +170,7 @@ func (v *ChangesCountsView) Add(applyOp ClusterChangeApplyOp, waitOp ClusterChan
 
 func (v *ChangesCountsView) String() string {
 	visibleApplyOps := []ClusterChangeApplyOp{
-		ClusterChangeApplyOpAdd, ClusterChangeApplyOpDelete, ClusterChangeApplyOpUpdate}
+		ClusterChangeApplyOpAdd, ClusterChangeApplyOpDelete, ClusterChangeApplyOpUpdate, ClusterChangeApplyOpNoop}
 
 	result := []string{}
 	for _, op := range visibleApplyOps {

@@ -169,24 +169,15 @@ func (c *ClusterChange) IsDoneApplying() (ctlresm.DoneApplyState, error) {
 }
 
 func (c *ClusterChange) ApplyDescription() string {
-	op := c.ApplyOp()
-	switch op {
-	case ClusterChangeApplyOpNoop:
-		return ""
-	default:
-		return fmt.Sprintf("%s %s", applyOpCodeUI[op], c.change.NewOrExistingResource().Description())
-	}
+	return fmt.Sprintf("%s %s", applyOpCodeUI[c.ApplyOp()], c.change.NewOrExistingResource().Description())
 }
 
 func (c *ClusterChange) WaitDescription() string {
-	op := c.WaitOp()
-	switch op {
-	case ClusterChangeWaitOpNoop:
-		return ""
-	default:
-		return fmt.Sprintf("%s %s", waitOpCodeUI[op], c.change.NewOrExistingResource().Description())
-	}
+	return fmt.Sprintf("%s %s", waitOpCodeUI[c.WaitOp()], c.change.NewOrExistingResource().Description())
 }
+
+func (c *ClusterChange) IsApplyUserVisible() bool { return c.ApplyOp() != ClusterChangeApplyOpNoop }
+func (c *ClusterChange) IsWaitUserVisible() bool { return c.WaitOp() != ClusterChangeWaitOpNoop }
 
 func (c *ClusterChange) Resource() ctlres.Resource  { return c.change.NewOrExistingResource() }
 func (c *ClusterChange) TextDiff() ctldiff.TextDiff { return c.change.TextDiff() }
@@ -212,8 +203,7 @@ func (c *ClusterChange) applyErr(err error) error {
 		}
 	}
 
-	return fmt.Errorf("Applying change operation '%s' to '%s': %s%s",
-		c.change.Op(), c.change.NewOrExistingResource().Description(), err, hintMsg)
+	return fmt.Errorf("Applying %s: %s%s", c.ApplyDescription(), err, hintMsg)
 }
 
 type noopUI struct{}

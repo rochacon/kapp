@@ -78,7 +78,8 @@ func (c ClusterChangeSet) markChangesToWait(change *ctldgraph.Change) bool {
 }
 
 func (c ClusterChangeSet) Apply(changesGraph *ctldgraph.ChangeGraph) error {
-	expectedNumChanges := len(changesGraph.All())
+	allChanges := changesGraph.All()
+	expectedNumChanges := len(allChanges)
 
 	blockedChanges := ctldgraph.NewBlockedChanges(changesGraph)
 	applyingChanges := NewApplyingChanges(expectedNumChanges, c.clusterChangeFactory, c.ui)
@@ -121,6 +122,16 @@ func ClusterChangesAsChangeViews(changes []*ClusterChange) []ChangeView {
 	var result []ChangeView
 	for _, change := range changes {
 		result = append(result, change)
+	}
+	return result
+}
+
+func ClusterChangesCount(changes []*ClusterChange, counted func(*ClusterChange) bool) int {
+	var result int
+	for _, change := range changes {
+		if counted(change) {
+			result += 1
+		}
 	}
 	return result
 }
