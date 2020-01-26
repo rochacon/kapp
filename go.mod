@@ -12,6 +12,7 @@ require (
 	github.com/ghodss/yaml v1.0.0
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/k14s/kapp-controller v0.1.0
+	github.com/kr/pty v1.1.8 // indirect
 	github.com/mattn/go-colorable v0.1.4 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.0
@@ -19,9 +20,9 @@ require (
 	github.com/spf13/pflag v1.0.5
 	github.com/vito/go-interact v1.0.0 // indirect
 	gopkg.in/yaml.v2 v2.2.4
-	k8s.io/api v0.17.2
-	k8s.io/apimachinery v0.17.2
-	k8s.io/client-go v0.17.2
+	k8s.io/api v0.15.9
+	k8s.io/apimachinery v0.15.9
+	k8s.io/client-go v0.15.9
 )
 
 replace github.com/aryann/difflib => github.com/k14s/difflib v0.0.0-20200108171459-b101e55e0592
