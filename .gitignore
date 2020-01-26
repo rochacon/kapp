@@ -1,5 +1,6 @@
 /kapp
 /kapp-darwin-amd64
+/kapp-freebsd-amd64
 /kapp-linux-amd64
 /kapp-windows-amd64.exe
 /tmp
